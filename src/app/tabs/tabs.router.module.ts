@@ -8,6 +8,16 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: 'addUsuario',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/add-usuario/add-usuario.module').then(m => m.AddUsuarioPageModule)
+          }
+        ]
+      },
+      {
         path: 'tab1',
         children: [
           {
