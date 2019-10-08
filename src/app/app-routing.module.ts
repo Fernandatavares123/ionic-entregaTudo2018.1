@@ -8,7 +8,8 @@ const routes: Routes = [
   },
   { path: 'add-entrega', loadChildren: './peges/add-entrega/add-entrega.module#AddEntregaPageModule' },
   { path: 'list-entrega', loadChildren: './peges/list-entrega/list-entrega.module#ListEntregaPageModule' },
-  { path: 'perfil-entrega', loadChildren: './pages/perfil-entrega/perfil-entrega.module#PerfilEntregaPageModule' }
+  { path: 'perfil-entrega', loadChildren: './pages/perfil-entrega/perfil-entrega.module#PerfilEntregaPageModule' },
+  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' }
 ];
 @NgModule({
   imports: [
