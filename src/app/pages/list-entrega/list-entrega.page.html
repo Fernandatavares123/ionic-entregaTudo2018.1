@@ -17,8 +17,8 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-list *ngIf="entrega | async as users">
-    <ion-item-sliding *ngFor="let u of users">
+  <ion-list *ngIf="entrega | async as entrega">
+    <ion-item-sliding *ngFor="let u of entrega">
       <ion-item-options side="start">
         <ion-item-option color="" (click)="editar(u.key)">
           Atualizar

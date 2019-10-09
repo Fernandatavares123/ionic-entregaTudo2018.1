@@ -27,7 +27,52 @@ const routes: Routes = [
           }
         ]
       },
+
       {
+        path: 'addEntrega',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/add-entrega/add-entrega.module').then(m => m.AddEntregaPageModule)
+          }
+        ]
+      },
+      {
+      
+
+                  path: 'addEntrega/:id',
+          children: [
+            {
+              path: '',
+              loadChildren: () =>
+                import('../pages/add-entrega/add-entrega.module').then(m => m.AddEntregaPageModule)
+            }
+          ]
+        },
+        {
+
+          path: 'listEntrega',
+          children: [
+            {
+              path: '',
+              loadChildren: () =>
+                import('../pages/list-entrega/list-entrega.module').then(m => m.ListEntregaPageModule)
+            }
+          ]
+        },
+        {
+
+          path: 'perfilEntrega/:id',
+          children: [
+            {
+              path: '',
+              loadChildren: () =>
+                import('../pages/perfil-entrega/perfil-entrega.module').then(m => m.PerfilEntregaPageModule)
+            }
+          ]
+        },
+        {
 
         path: 'tab1',
         children: [
