@@ -4,15 +4,15 @@
 
 export const environment = {
   production: false,
-  firebaseConfig: {
+  firebaseConfig : {
     apiKey: "AIzaSyDTkyQXCk4kMNfmZwyoUWH-LZUm7G2GVGk",
-    authDomain: "entregatudo-7d92e.firebaseapp.com",
-    databaseURL: "https://entregatudo-7d92e.firebaseio.com",
-    projectId: "entregatudo-7d92e",
-    storageBucket: "",
-    messagingSenderId: "819315983416",
-    appId: "1:819315983416:web:bb9c28173e41505ccb92cd",
-    measurementId: "G-K4HD3L23B5"
+  authDomain: "entregatudo-7d92e.firebaseapp.com",
+  databaseURL: "https://entregatudo-7d92e.firebaseio.com",
+  projectId: "entregatudo-7d92e",
+  storageBucket: "entregatudo-7d92e.appspot.com",
+  messagingSenderId: "819315983416",
+  appId: "1:819315983416:web:bb9c28173e41505ccb92cd",
+  measurementId: "G-K4HD3L23B5"
   }
 };
 

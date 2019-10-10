@@ -1,6 +1,6 @@
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { Component } from '@angular/core';
-import { EntregaService } from '../service/entrega.service';
-import { UsuarioService } from '../services/usuario.service';
+import { EntregaService } from '../services/entrega.service';
 
 @Component({
   selector: 'app-tab1',
@@ -8,15 +8,18 @@ import { UsuarioService } from '../services/usuario.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  protected usuario: any;
+
+  protected entregas: any;
+
   constructor(
-    protected usuarioService: UsuarioService
+    protected entregaService: EntregaService,
   ) {
-    this.usuario.getAll() .subscribe(
+    this.entregaService.getAll().subscribe(
       res=>{
-        this.usuario = res
+        this.entregas = res
       }
     )
+
   }
 
 }

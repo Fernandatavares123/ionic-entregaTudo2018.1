@@ -1,3 +1,4 @@
+import { PerfilUsuarioPage } from './../pages/perfil-usuario/perfil-usuario.page';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
@@ -27,6 +28,16 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'listUsuario',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/list-usuario/list-usuario.module').then(m => m.ListUsuarioPageModule)
+          }
+        ]
+      },
 
       {
         path: 'addEntrega',
@@ -39,41 +50,37 @@ const routes: Routes = [
         ]
       },
       {
-      
+        path: 'addEntrega/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/add-entrega/add-entrega.module').then(m => m.AddEntregaPageModule)
+          }
+        ]
+      },
+      {
+        path: 'listEntrega',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/list-entrega/list-entrega.module').then(m => m.ListEntregaPageModule)
+          }
+        ]
+      },
+      {
+        path: 'perfilEntrega/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/perfil-entrega/perfil-entrega.module').then(m => m.PerfilEntregaPageModule)
+          }
+        ]
+      },
 
-                  path: 'addEntrega/:id',
-          children: [
-            {
-              path: '',
-              loadChildren: () =>
-                import('../pages/add-entrega/add-entrega.module').then(m => m.AddEntregaPageModule)
-            }
-          ]
-        },
-        {
-
-          path: 'listEntrega',
-          children: [
-            {
-              path: '',
-              loadChildren: () =>
-                import('../pages/list-entrega/list-entrega.module').then(m => m.ListEntregaPageModule)
-            }
-          ]
-        },
-        {
-
-          path: 'perfilEntrega/:id',
-          children: [
-            {
-              path: '',
-              loadChildren: () =>
-                import('../pages/perfil-entrega/perfil-entrega.module').then(m => m.PerfilEntregaPageModule)
-            }
-          ]
-        },
-        {
-
+      {
         path: 'tab1',
         children: [
           {
@@ -83,16 +90,7 @@ const routes: Routes = [
           }
         ]
       },
-      {
-        path: 'listUsuario',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../pages/list-usuario/list-usuario.module').then(m => m.ListUsuarioPageModule)
-          }
-        ]
-      },
+
       {
         path: 'tab3',
         children: [
@@ -100,6 +98,16 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+          }
+        ]
+      },
+      {
+        path: 'perfilUsuario/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/perfil-usuario/perfil-usuario.module').then(m => m.PerfilUsuarioPageModule)
           }
         ]
       },
@@ -121,4 +129,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

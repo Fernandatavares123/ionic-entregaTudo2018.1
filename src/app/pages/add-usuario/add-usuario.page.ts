@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./add-usuario.page.scss'],
 })
 export class AddUsuarioPage implements OnInit {
+
   protected usuario: Usuario = new Usuario;
   protected id: string = null;
 
@@ -21,6 +22,10 @@ export class AddUsuarioPage implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  //função chamada toda vez que a pagina recebe foco;
+  ionViewWillEnter(){
     this.id = this.activedRoute.snapshot.paramMap.get("id");
     if (this.id) {
       this.usuarioService.get(this.id).subscribe(
@@ -74,7 +79,3 @@ export class AddUsuarioPage implements OnInit {
   }
 
 }
-
-
-
-

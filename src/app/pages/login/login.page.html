@@ -1,25 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login do Usuario</ion-title>
+    <ion-title>Login do Usuário</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form #fc (ngSubmit)="onsubmit()fc"
-<ion-item>
-  <ion-labe position="floating">E-mail</ion-labe>
-  <ion-input type="email" name"=email" [(ngModel)]= "email"></ion-input>
-</ion-item>
-
-
-<ion-item>
-    <ion-labe position="floating">Senha</ion-labe>
-    <ion-input type="senha" name"=senha" [(ngModel)]= "Senha"></ion-input>
-  </ion-item>
-
-  <ion-item>
-
-      <ion-button position="submit" expand="block">Senha</ion-labe>
-      <ion-button type="reset" expand"=block" colo= "danger">Cancelar</ion-button>
+  <form #fc (ngSubmit)="onsubmit(fc)">
+    <ion-item>
+      <ion-label position="floating">E-mail</ion-label>
+      <ion-input type="email" name="email" [(ngModel)]="email"></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input type="password" name="senha" [(ngModel)]="senha"></ion-input>
+    </ion-item>
+    
+    <ion-button type="submit" expand="block">Salvar</ion-button>
+    <ion-button type="reset" expand="block" color="danger">Cancelar</ion-button>
+
+  </form>
 </ion-content>

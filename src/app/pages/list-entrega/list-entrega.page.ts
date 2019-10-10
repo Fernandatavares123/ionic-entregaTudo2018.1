@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EntregaService } from '../../service/entrega.service';
+import { EntregaService } from 'src/app/services/entrega.service';
 
 @Component({
   selector: 'app-list-entrega',
@@ -9,17 +9,17 @@ import { EntregaService } from '../../service/entrega.service';
 })
 export class ListEntregaPage implements OnInit {
 
-  entregaService: any;
-  
-  entregas: any;
+  protected entregas: any;
+
   constructor(
-    protected entregaSernice: EntregaService,
-    protected router:Router
+    protected entregaService: EntregaService,
+    protected router: Router
   ) { }
 
   ngOnInit() {
     this.entregas = this.entregaService.getAll();
   }
+
   editar(key) {
     this.router.navigate(['/tabs/addEntrega', key]);
   }
@@ -32,11 +32,10 @@ export class ListEntregaPage implements OnInit {
       console.log('Async operation has ended');
       event.target.complete();
     }, 500);
+
   }
 
+  remover(key) {
+    this.entregaService.remover(key);
+  }
 }
-
-
-  
-
-

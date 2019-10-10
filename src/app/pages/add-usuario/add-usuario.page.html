@@ -35,7 +35,7 @@
 
     <ion-item lines="none">
       <ion-button type="submit" [disabled]="fc.invalid || (p.value != c.value)">Salvar</ion-button>
-      <ion-button type="reset" color="danger">Cancelar</ion-button>
+      <ion-button type="reset" color="danger" [routerLink]="['/']">Cancelar</ion-button>
     </ion-item>
   </form>
 </ion-content>
