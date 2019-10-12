@@ -12,7 +12,8 @@ import { AppComponent } from './app.component';
 //Firebase ----------------------------
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
-import {AngularFireDatabaseModule} from '@angular/fire/database'
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import {AngularFireDatabaseModule} from '@angular/fire/database'
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [
     StatusBar,
@@ -28,4 +30,4 @@ import {AngularFireDatabaseModule} from '@angular/fire/database'
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
