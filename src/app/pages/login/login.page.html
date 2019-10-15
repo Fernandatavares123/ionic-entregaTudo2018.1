@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content>
+
+
+
   <form #fc (ngSubmit)="onsubmit(fc)">
     <ion-item>
       <ion-label position="floating">E-mail</ion-label>
@@ -15,18 +18,18 @@
       <ion-label position="floating">Senha</ion-label>
       <ion-input type="password" name="senha" [(ngModel)]="senha"></ion-input>
     </ion-item>
-    
+
     <ion-button type="submit" expand="block">Salvar</ion-button>
     <ion-button type="reset" expand="block" color="danger">Cancelar</ion-button>
 
 
     <section>
-        <ion-button expand="block" (click)="LoginWEB()">Entren com Google</ion-button>
+      <ion-button expand="block" (click)="loginWEB()">Entren com Google</ion-button>
     </section>
 
     <section>
-        <ion-button expand="block"  color="danger"(click)="Logout()">Sair</ion-button>
+      <ion-button expand="block" color="danger" (click)="Logout()">Sair</ion-button>
     </section>
-  
+
   </form>
 </ion-content>

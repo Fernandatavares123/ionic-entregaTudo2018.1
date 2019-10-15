@@ -4,6 +4,10 @@ import { auth, messaging } from 'firebase/app';
 import { Router } from '@angular/router';
 import { error } from '@angular/compiler/src/util';
 import { MensagemService } from '../../services/mensagem.service';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Platform } from '@ionic/angular';
+
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 
 
@@ -15,14 +19,17 @@ import { MensagemService } from '../../services/mensagem.service';
 export class LoginPage implements OnInit {
 
 
- 
+
   protected email: string;
   protected senha: string;
 
   constructor(public afAuth: AngularFireAuth,
 
-  protected router: Router,
-  protected msg: MensagemService
+    protected router: Router,
+    protected msg: MensagemService,
+    private googlePlus: GooglePlus,
+    private platform: Platform,
+    private geolocation: Geolocation
   ) { }
 
   ngOnInit() {
@@ -30,8 +37,14 @@ export class LoginPage implements OnInit {
   onsubmit(form) {
     this.login()
   }
-  loginweb() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+  loginWEB() {
+    if (this.platform.is("cordova")) {
+
+
+      this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    } else {
+      this.loginGooglePlus()
+    }
   }
   login() {
     this.afAuth.auth.signInWithEmailAndPassword(this.email, this.senha).then(
@@ -45,9 +58,31 @@ export class LoginPage implements OnInit {
 
     )
   }
+  loginGooglePlus() {
+    this.googlePlus.login({})
+
+
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
+  }
 
   logout() {
     this.afAuth.auth.signOut();
+    if (!this.platform.is("cordova")){
+      this.googlePlus.logout()
+    }
   }
+    localAtual(){
+      this.geolocation.getCurrentPosition().then((resp) => {
+        // resp.coords.latitude
+        // resp.coords.longitude
+       }).catch((error) => {
+         console.log('Error getting location', error);
+       });
+       
+  }
+
+
+
 
 }
