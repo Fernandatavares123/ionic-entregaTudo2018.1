@@ -10,10 +10,15 @@
 
   <form #fc (ngSubmit)="onsubmit(fc)">
     <ion-item>
-      <ion-label position="floating">E-mail</ion-label>
-      <ion-input type="email" name="email" [(ngModel)]="email"></ion-input>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input type="text" [(ngModel)]="usuario.nome" name="nome" required></ion-input>
     </ion-item>
+ <ion-item>
+      <ion-label position="floating">E-mail</ion-label>
+      <ion-input type="email" [(ngModel)]="email" name="email" required pattern= "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" #e="ngModel"></ion-input>
+      <ion-text color="danger" *ngIf="e.invalid  && e.dirty">E-mail invalido!</ion-text>
 
+    </ion-item>
     <ion-item>
       <ion-label position="floating">Senha</ion-label>
       <ion-input type="password" name="senha" [(ngModel)]="senha"></ion-input>

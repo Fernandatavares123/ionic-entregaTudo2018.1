@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Camera  } from '@ionic-native/camera/ngx';
 
 //Firebase ----------------------------
 import { AngularFireModule } from '@angular/fire';

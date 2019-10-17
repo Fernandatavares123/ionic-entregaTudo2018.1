@@ -4,7 +4,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content><ion-item lines="none">
+  <img src="assets/perfil2.png" (click)="tirarFoto()" *ngIf="!preview">
+  <img [src]="preview" (click)="tirarFoto()" *ngIf="preview">
+</ion-item>
   <form #fc="ngForm" (ngSubmit)="onsubmit(fc)">
     <ion-item>
       <ion-label position="floating">Produto</ion-label>

@@ -5,6 +5,7 @@
     </ion-title>
     <ion-title slot="end">
       <ion-icon name="person" routerLink="/login"></ion-icon>
+     
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,6 +14,7 @@
     <ion-card *ngFor="let entrega of entregas" [routerLink]="['/tabs/perfilEntrega/',entrega.key]">
       <!-- <img src="/assets/shapes.svg" alt="" /> -->
       <ion-card-header>
+          <ion-badge color="danger">{{quantEntrega}}</ion-badge>
         <ion-card-subtitle>{{entrega.peso}}</ion-card-subtitle>
         <ion-card-title>{{entrega.produto}}</ion-card-title>
       </ion-card-header>
