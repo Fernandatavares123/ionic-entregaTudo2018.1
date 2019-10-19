@@ -3,6 +3,7 @@ import { Entrega } from 'src/app/model/entrega';
 import { EntregaService } from 'src/app/services/entrega.service';
 import { AlertController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
+import{Camera, CameraOptions} from '@ionic-native/camera/ngx'
 
 @Component({
   selector: 'app-add-entrega',
@@ -11,14 +12,25 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AddEntregaPage implements OnInit {
 
+  protected preview: string [];
   protected entrega: Entrega = new Entrega;
   protected id: string = null;
+  slideOpts = {
+    initialSlide: 1,
+    speed: 400
+  };
+
+ 
+
 
   constructor(
     protected entregaService: EntregaService,
     protected alertController: AlertController,
     protected router: Router,
     protected activedRoute: ActivatedRoute,
+    protected camera: Camera
+   
+    
   ) { }
 
   ngOnInit() {
@@ -31,6 +43,8 @@ export class AddEntregaPage implements OnInit {
       this.entregaService.get(this.id).subscribe(
         res => {
           this.entrega = res
+          
+          
         },
         erro => this.id = null
       )
@@ -38,6 +52,7 @@ export class AddEntregaPage implements OnInit {
   }
 
   onsubmit(form) {
+    this.entrega.fotos=this.preview;
     if (this.id) {
       this.entregaService.update(this.entrega, this.id).then(
         res => {
@@ -77,5 +92,26 @@ export class AddEntregaPage implements OnInit {
 
     await alert.present();
   }
+  tirarFoto() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      if(!this.preview){
+        this.preview=[]};
+      this.preview.push(base64Image);
+    }, (err) => {
+      // Handle error
+    });
+  }
 
 }
+  
+
