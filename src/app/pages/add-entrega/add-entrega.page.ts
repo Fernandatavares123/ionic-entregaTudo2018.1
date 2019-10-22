@@ -3,7 +3,7 @@ import { Entrega } from 'src/app/model/entrega';
 import { EntregaService } from 'src/app/services/entrega.service';
 import { AlertController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
-import{Camera, CameraOptions} from '@ionic-native/camera/ngx'
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx'
 
 @Component({
   selector: 'app-add-entrega',
@@ -12,15 +12,17 @@ import{Camera, CameraOptions} from '@ionic-native/camera/ngx'
 })
 export class AddEntregaPage implements OnInit {
 
-  protected preview: string [];
+  protected preview: string[];
   protected entrega: Entrega = new Entrega;
   protected id: string = null;
   slideOpts = {
     initialSlide: 1,
+    slidesPerView: 3,
     speed: 400
+ 
   };
 
- 
+
 
 
   constructor(
@@ -29,22 +31,22 @@ export class AddEntregaPage implements OnInit {
     protected router: Router,
     protected activedRoute: ActivatedRoute,
     protected camera: Camera
-   
-    
+
+
   ) { }
 
   ngOnInit() {
   }
 
   //função chamada toda vez que a pagina recebe foco;
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.id = this.activedRoute.snapshot.paramMap.get("id");
     if (this.id) {
       this.entregaService.get(this.id).subscribe(
         res => {
           this.entrega = res
-          
-          
+
+
         },
         erro => this.id = null
       )
@@ -52,7 +54,7 @@ export class AddEntregaPage implements OnInit {
   }
 
   onsubmit(form) {
-    this.entrega.fotos=this.preview;
+    this.entrega.fotos = this.preview;
     if (this.id) {
       this.entregaService.update(this.entrega, this.id).then(
         res => {
@@ -104,14 +106,43 @@ export class AddEntregaPage implements OnInit {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
       let base64Image = 'data:image/jpeg;base64,' + imageData;
-      if(!this.preview){
-        this.preview=[]};
+      if (!this.preview) {
+        this.preview = []
+      };
       this.preview.push(base64Image);
     }, (err) => {
       // Handle error
     });
   }
+  async removerFoto(index) {
+    const alert = await this.alertController.create({
+      header: 'Confirm Remoção!',
+      message: 'Deseja remover a foto?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            // console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'sim',
+          handler: () => {
+            // console.log('Confirm Okay');
+            this.preview.splice(index, 1)
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
 
 }
-  
+
+
+
+
 
