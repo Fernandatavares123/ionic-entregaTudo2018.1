@@ -6,6 +6,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker,
+  Environment
+} from '@ionic-native/google-maps';
+
 @Component({
   selector: 'app-add-usuario',
   templateUrl: './add-usuario.page.html',
@@ -15,7 +26,9 @@ export class AddUsuarioPage implements OnInit {
 
   protected usuario: Usuario = new Usuario;
   protected id: string = null;
-  protected preview:string = null;
+  protected preview: string = null;
+
+  protected map: GoogleMap;
 
   constructor(
     protected usuarioService: UsuarioService,
@@ -26,8 +39,15 @@ export class AddUsuarioPage implements OnInit {
     private camera: Camera
   ) { }
 
+ 
+
   ngOnInit() {
     this.localAtual()
+    this.loadMap();
+  }
+
+  ionViewDidLoad() {
+   
   }
 
   //função chamada toda vez que a pagina recebe foco;
@@ -44,38 +64,38 @@ export class AddUsuarioPage implements OnInit {
   }
 
   onsubmit(form) {
-    if (!this.preview){
+    if (!this.preview) {
       this.presentAlert("Ops!", "Tire sua foto!")
-    }else{
-    this.usuario.foto = this.preview;
-    if (this.id) {
-      this.usuarioService.update(this.usuario, this.id).then(
-        res => {
-          this.presentAlert("Aviso", "Atualizado!");
-          form.reset();
-          this.usuario = new Usuario;
-          this.router.navigate(['/tabs/listUsuario']);
-        },
-        erro => {
-          console.log("Erro: " + erro);
-          this.presentAlert("Erro", "Erro ao atualizar!");
-        }
-      )
     } else {
-      this.usuarioService.save(this.usuario).then(
-        res => {
-          this.presentAlert("Aviso", "Cadastrado!");
-          form.reset();
-          this.usuario = new Usuario;
-          this.router.navigate(['/tabs/listUsuario']);
-        },
-        erro => {
-          console.log("Erro: " + erro);
-          this.presentAlert("Erro", "Erro ao cadastrar!");
-        }
-      )
+      this.usuario.foto = this.preview;
+      if (this.id) {
+        this.usuarioService.update(this.usuario, this.id).then(
+          res => {
+            this.presentAlert("Aviso", "Atualizado!");
+            form.reset();
+            this.usuario = new Usuario;
+            this.router.navigate(['/tabs/listUsuario']);
+          },
+          erro => {
+            console.log("Erro: " + erro);
+            this.presentAlert("Erro", "Erro ao atualizar!");
+          }
+        )
+      } else {
+        this.usuarioService.save(this.usuario).then(
+          res => {
+            this.presentAlert("Aviso", "Cadastrado!");
+            form.reset();
+            this.usuario = new Usuario;
+            this.router.navigate(['/tabs/listUsuario']);
+          },
+          erro => {
+            console.log("Erro: " + erro);
+            this.presentAlert("Erro", "Erro ao cadastrar!");
+          }
+        )
+      }
     }
-  }
   }
 
   async presentAlert(titulo: string, texto: string) {
@@ -101,7 +121,7 @@ export class AddUsuarioPage implements OnInit {
   tirarFoto() {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
@@ -113,6 +133,33 @@ export class AddUsuarioPage implements OnInit {
       this.preview = base64Image;
     }, (err) => {
       // Handle error
+    });
+  }
+  loadMap() {
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+        target: {
+          lat: 43.0741904,
+          lng: -89.3809802
+        },
+        zoom: 18,
+        tilt: 30
+      }
+    };
+
+    this.map = GoogleMaps.create('map_canvas', mapOptions);
+
+    let marker: Marker = this.map.addMarkerSync({
+      title: 'Ionic',
+      icon: 'blue',
+      animation: 'DROP',
+      position: {
+        lat: 43.0741904,
+        lng: -89.3809802
+      }
+    });
+    marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+      alert('clicked');
     });
   }
 
